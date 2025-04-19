@@ -1,0 +1,51 @@
+﻿using ClinicHub.Core.Entity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+namespace ClinicHub.Infrastructure.Persistence.Configurations
+{
+    public class DoctorConfigurations : IEntityTypeConfiguration<Doctor>
+    {
+        public void Configure(EntityTypeBuilder<Doctor> builder)
+        {
+            builder
+                .HasKey(d => d.Id);
+            builder
+                .HasOne(d => d.Address)
+                .WithOne()
+                .HasForeignKey<Doctor>(d => d.AddressId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .HasOne(d => d.Specialty)
+                .WithMany(d => d.Doctors)
+                .HasForeignKey(d => d.SpecialtyId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .Property(builder => builder.CPF)
+                .IsRequired()
+                .HasMaxLength(11);
+
+            builder
+                .Property(builder => builder.Email)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            builder
+                .Property(builder => builder.CRM)
+                .IsRequired()
+                .HasMaxLength(10);
+
+            builder
+                .Property(builder => builder.FullName)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            builder
+                .Property(builder => builder.Phone)
+                .IsRequired()
+                .HasMaxLength(11);            
+        }
+    }
+}

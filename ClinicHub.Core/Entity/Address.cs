@@ -15,7 +15,7 @@
         public int Number { get; private set; }
         public int CityId { get; private set; }
         public string Cep { get; private set; }
-        public string Neighborhood { get; private set; }
+        public string Neighborhood { get; private set; }     
 
         public void Update(string publicPlace, int cityId, string cep)
         {

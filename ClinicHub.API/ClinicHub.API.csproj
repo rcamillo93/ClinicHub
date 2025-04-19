@@ -24,4 +24,9 @@
     <Folder Include="Filters\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ClinicHub.Application\ClinicHub.Application.csproj" />
+    <ProjectReference Include="..\ClinicHub.Infrastructure\ClinicHub.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

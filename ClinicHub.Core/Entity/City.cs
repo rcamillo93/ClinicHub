@@ -7,6 +7,7 @@
             CityName = cityName;
             StateId = stateId;
             CodIbge = codIbge;
+            Addresses = new List<Address>();
         }
 
         public string CityName { get; private set; }

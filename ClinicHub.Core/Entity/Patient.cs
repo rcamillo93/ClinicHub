@@ -4,11 +4,11 @@ namespace ClinicHub.Core.Entity
 {
     public class Patient : BaseEntity
     {
-        public Patient(string name, string lastName, DateTime birthDate, string phone, string email, string cPF,
-                    decimal? weight, decimal? height, BloodTypeEnum? bloodType, RHFactorEnum? rhFactor, int addressId)
+        public Patient(string fullName, DateTime birthDate, string phone, string email, string cPF, 
+                        decimal? weight, decimal? height, BloodTypeEnum? bloodType, RHFactorEnum? rhFactor, 
+                        int? addressId, int? healthInsuranceId)
         {
-            Name = name;
-            LastName = lastName;
+            FullName = fullName;
             BirthDate = birthDate;
             Phone = phone;
             Email = email;
@@ -18,10 +18,10 @@ namespace ClinicHub.Core.Entity
             BloodType = bloodType;
             RhFactor = rhFactor;
             AddressId = addressId;
+            HealthInsuranceId = healthInsuranceId;
         }
 
-        public string Name { get; private set; }
-        public string LastName { get; private set; }
+        public string FullName { get; private set; }
         public DateTime BirthDate { get; private set; }
         public string Phone { get; private set; }
         public string Email { get; private set; }
@@ -30,6 +30,10 @@ namespace ClinicHub.Core.Entity
         public decimal? Height { get; private set; }
         public BloodTypeEnum? BloodType { get; private set; }
         public RHFactorEnum? RhFactor { get; private set; }
-        public int AddressId { get; private set; }
+        public int? AddressId { get; private set; }
+        public int? HealthInsuranceId { get; private set; }
+        public HealthInsurance HealthInsurance { get; private set; }
+        public Address? Address { get; private set; }
+        public List<CustomerService> CustomerServices { get; set; }
     }
 }

@@ -5,6 +5,7 @@
         public State(string stateName)
         {
             StateName = stateName;
+            Cities = new List<City>();
         }
 
         public string StateName { get; private set; }

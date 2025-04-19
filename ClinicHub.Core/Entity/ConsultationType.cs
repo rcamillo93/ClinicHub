@@ -1,20 +1,18 @@
 ﻿namespace ClinicHub.Core.Entity
 {
-    public class Service : BaseEntity
+    public class ConsultationType : BaseEntity
     {
-        public Service(string name, string description, decimal value, int duration)
+        public ConsultationType(string title, string description, decimal value)
         {
-            Name = name;
+            Title = title;
             Description = description;
             Value = value;
-            Duration = duration;
             CustomerServices = new List<CustomerService>();
         }
 
-        public string Name { get; private set; }
+        public string Title { get; private set; }
         public string Description { get; private set; }
         public decimal Value { get; private set; }
-        public int Duration { get; private set; }
         public List<CustomerService> CustomerServices { get; private set; }
     }
 }

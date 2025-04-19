@@ -1,6 +1,6 @@
 ﻿namespace ClinicHub.Core.Entity
 {
-    public class BaseEntity
+    public abstract class BaseEntity
     {
         protected BaseEntity()
         {                

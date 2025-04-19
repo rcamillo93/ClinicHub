@@ -2,35 +2,31 @@
 
 namespace ClinicHub.Core.Entity
 {
-    public class Doctor : BaseEntity
+    public class Doctor : UserBaseEntity
     {
-        public Doctor(string name, string lastName, string email, string cPF, string phone,
-                        DateTime birthDate, string cRM, BloodTypeEnum? bloodType, RHFactorEnum? 
-                        rhFactor, int specialtyId, int addressId)
+        public Doctor()
         {
-            Name = name;
-            LastName = lastName;
-            Email = email;
-            CPF = cPF;
-            Phone = phone;
-            BirthDate = birthDate;
-            CRM = cRM;
+        }
+
+        public Doctor(string fullName, string email, string password, DateTime birthDate, string phone, string cPF,
+               string crm, BloodTypeEnum? bloodType, RHFactorEnum? rhFactor, int specialtyId, int addressId)
+            : base(fullName, email, password, birthDate, phone, cPF, UserRoleEnum.Doctor)
+        {
+            CRM = crm;
             BloodType = bloodType;
             RhFactor = rhFactor;
             SpecialtyId = specialtyId;
             AddressId = addressId;
+            CustomerServices = new List<CustomerService>();
         }
 
-        public string Name { get; private set; }
-        public string LastName { get; private set; }
-        public string Email { get; private set; }
-        public string CPF { get; private set; }
-        public string Phone { get; private set; }
-        public DateTime BirthDate { get; private set; }
         public string CRM { get; private set; }
         public BloodTypeEnum? BloodType { get; private set; }
         public RHFactorEnum? RhFactor { get; private set; }
         public int SpecialtyId { get; private set; }
         public int AddressId { get; private set; }
+        public Address? Address { get; private set; }
+        public Specialty? Specialty { get; private set; }
+        public List<CustomerService> CustomerServices { get; private set; }        
     }
 }
