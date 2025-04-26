@@ -207,51 +207,21 @@ namespace ClinicHub.Infrastructure.Persistence.Migrations
                     b.Property<int>("AddressId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("BirthDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<int?>("BloodType")
                         .HasColumnType("int");
-
-                    b.Property<string>("CPF")
-                        .IsRequired()
-                        .HasMaxLength(11)
-                        .HasColumnType("nvarchar(11)");
-
-                    b.Property<string>("CRM")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Email")
+                    b.Property<string>("Crm")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasMaxLength(11)
-                        .HasColumnType("nvarchar(11)");
-
                     b.Property<int?>("RhFactor")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Role")
                         .HasColumnType("int");
 
                     b.Property<int>("SpecialtyId")
@@ -260,12 +230,18 @@ namespace ClinicHub.Infrastructure.Persistence.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AddressId")
                         .IsUnique();
 
                     b.HasIndex("SpecialtyId");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("Doctors");
                 });
@@ -379,98 +355,6 @@ namespace ClinicHub.Infrastructure.Persistence.Migrations
                     b.ToTable("Patients");
                 });
 
-            modelBuilder.Entity("ClinicHub.Core.Entity.Payment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("CustomerServiceId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("PaymentDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("PaymentStatus")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PaymentType")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CustomerServiceId")
-                        .IsUnique();
-
-                    b.ToTable("Payments", (string)null);
-                });
-
-            modelBuilder.Entity("ClinicHub.Core.Entity.Secretary", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("BirthDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CPF")
-                        .IsRequired()
-                        .HasMaxLength(11)
-                        .HasColumnType("nvarchar(11)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
-
-                    b.Property<int>("Role")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Secretaries", (string)null);
-                });
-
             modelBuilder.Entity("ClinicHub.Core.Entity.Service", b =>
                 {
                     b.Property<int>("Id")
@@ -567,6 +451,58 @@ namespace ClinicHub.Infrastructure.Persistence.Migrations
                     b.ToTable("States");
                 });
 
+            modelBuilder.Entity("ClinicHub.Core.Entity.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("BirthDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Cpf")
+                        .IsRequired()
+                        .HasMaxLength(14)
+                        .HasColumnType("nvarchar(14)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<int>("Role")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
+
             modelBuilder.Entity("ClinicHub.Core.Entity.Address", b =>
                 {
                     b.HasOne("ClinicHub.Core.Entity.City", null)
@@ -636,9 +572,17 @@ namespace ClinicHub.Infrastructure.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("ClinicHub.Core.Entity.User", "User")
+                        .WithOne("Doctor")
+                        .HasForeignKey("ClinicHub.Core.Entity.Doctor", "UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.Navigation("Address");
 
                     b.Navigation("Specialty");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("ClinicHub.Core.Entity.Patient", b =>
@@ -657,15 +601,6 @@ namespace ClinicHub.Infrastructure.Persistence.Migrations
                     b.Navigation("HealthInsurance");
                 });
 
-            modelBuilder.Entity("ClinicHub.Core.Entity.Payment", b =>
-                {
-                    b.HasOne("ClinicHub.Core.Entity.CustomerService", null)
-                        .WithOne("Payment")
-                        .HasForeignKey("ClinicHub.Core.Entity.Payment", "CustomerServiceId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("ClinicHub.Core.Entity.City", b =>
                 {
                     b.Navigation("Addresses");
@@ -674,11 +609,6 @@ namespace ClinicHub.Infrastructure.Persistence.Migrations
             modelBuilder.Entity("ClinicHub.Core.Entity.ConsultationType", b =>
                 {
                     b.Navigation("CustomerServices");
-                });
-
-            modelBuilder.Entity("ClinicHub.Core.Entity.CustomerService", b =>
-                {
-                    b.Navigation("Payment");
                 });
 
             modelBuilder.Entity("ClinicHub.Core.Entity.Doctor", b =>
@@ -704,6 +634,11 @@ namespace ClinicHub.Infrastructure.Persistence.Migrations
             modelBuilder.Entity("ClinicHub.Core.Entity.State", b =>
                 {
                     b.Navigation("Cities");
+                });
+
+            modelBuilder.Entity("ClinicHub.Core.Entity.User", b =>
+                {
+                    b.Navigation("Doctor");
                 });
 #pragma warning restore 612, 618
         }

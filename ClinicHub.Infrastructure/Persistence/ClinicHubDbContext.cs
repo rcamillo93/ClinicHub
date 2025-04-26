@@ -15,12 +15,10 @@ namespace ClinicHub.Infrastructure.Persistence
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<HealthInsurance> HealthInsurances { get; set; }
         public DbSet<Patient> Patients { get; set; }
-        public DbSet<Payment> Payments { get; set; }
-        public DbSet<Secretary> Secretaries { get; set; }
         public DbSet<Service> Services { get; set; }        
         public DbSet<Specialty> Specialties { get; set; }
         public DbSet<State> States { get; set; }
-
+        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -23,29 +23,9 @@ namespace ClinicHub.Infrastructure.Persistence.Configurations
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder
-                .Property(builder => builder.CPF)
+                .Property(builder => builder.Crm)
                 .IsRequired()
-                .HasMaxLength(11);
-
-            builder
-                .Property(builder => builder.Email)
-                .IsRequired()
-                .HasMaxLength(100);
-
-            builder
-                .Property(builder => builder.CRM)
-                .IsRequired()
-                .HasMaxLength(10);
-
-            builder
-                .Property(builder => builder.FullName)
-                .IsRequired()
-                .HasMaxLength(100);
-
-            builder
-                .Property(builder => builder.Phone)
-                .IsRequired()
-                .HasMaxLength(11);            
+                .HasMaxLength(10);      
         }
     }
 }

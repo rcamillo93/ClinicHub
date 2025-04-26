@@ -21,6 +21,5 @@ namespace ClinicHub.Infrastructure.Persistence.Configurations
                 .IsRequired()
                 .HasMaxLength(400);
         }
-
     }
 }

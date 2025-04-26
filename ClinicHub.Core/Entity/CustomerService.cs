@@ -33,7 +33,6 @@ namespace ClinicHub.Core.Entity
         public Doctor Doctor { get; private set; }
         public Patient Patient { get; private set; }
         public Service Service { get; private set; }
-        public Payment? Payment { get; private set; }
         public ConsultationType ConsultationType { get; private set; }
     }
 }
