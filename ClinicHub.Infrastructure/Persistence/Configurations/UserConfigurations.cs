@@ -33,7 +33,9 @@ namespace ClinicHub.Infrastructure.Persistence.Configurations
                    .HasMaxLength(14);
 
             builder.Property(u => u.Role)
-                   .IsRequired();
+                   .IsRequired()
+                   .HasConversion<string>()
+                   .HasMaxLength(25);
 
             builder.HasOne(u => u.Doctor)
                    .WithOne(d => d.User)

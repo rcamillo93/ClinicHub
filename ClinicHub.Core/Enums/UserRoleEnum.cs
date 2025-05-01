@@ -4,6 +4,6 @@
     {
         Secretary,
         Doctor,
-        Admin    
+        Admin  
     }
 }
