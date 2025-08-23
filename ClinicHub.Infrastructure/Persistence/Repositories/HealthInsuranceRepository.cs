@@ -1,13 +1,21 @@
 ﻿using ClinicHub.Core.Entity;
 using ClinicHub.Core.Repositores;
+using Microsoft.EntityFrameworkCore;
 
 namespace ClinicHub.Infrastructure.Persistence.Repositories
 {
     public class HealthInsuranceRepository : IHealthInsuranceRepository
     {
-        public Task AddAsync(HealthInsurance healthInsurance)
+        private readonly ClinicHubDbContext _context;
+
+        public HealthInsuranceRepository(ClinicHubDbContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
+        }
+
+        public async Task AddAsync(HealthInsurance healthInsurance)
+        {
+            await _context.HealthInsurances.AddAsync(healthInsurance);
         }
 
         public Task DeleteAsync(int id)
@@ -15,19 +23,18 @@ namespace ClinicHub.Infrastructure.Persistence.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<HealthInsurance>> GetAllAsync()
+        public async Task<IEnumerable<HealthInsurance>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _context.HealthInsurances
+                            .AsNoTracking()
+                            .ToListAsync();
         }
 
-        public Task<HealthInsurance?> GetHealthInsuranceByIdAsync(int id)
+        public async Task<HealthInsurance?> GetHealthInsuranceByIdAsync(int id)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task UpdateAsync(HealthInsurance healthInsurance)
-        {
-            throw new NotImplementedException();
+            return await _context.HealthInsurances
+                .AsNoTracking()
+                .FirstOrDefaultAsync(h => h.Id == id);
         }
     }
 }

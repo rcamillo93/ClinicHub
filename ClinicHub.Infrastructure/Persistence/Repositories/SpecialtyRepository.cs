@@ -1,13 +1,21 @@
 ﻿using ClinicHub.Core.Entity;
 using ClinicHub.Core.Repositores;
+using Microsoft.EntityFrameworkCore;
 
 namespace ClinicHub.Infrastructure.Persistence.Repositories
 {
     public class SpecialtyRepository : ISpecialtyRepository
     {
-        public Task AddAsync(Specialty specialty)
+        private readonly ClinicHubDbContext _context;
+
+        public SpecialtyRepository(ClinicHubDbContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
+        }
+
+        public async Task AddAsync(Specialty specialty)
+        {
+            await _context.Specialties.AddAsync(specialty);
         }
 
         public Task DeleteAsync(int id)
@@ -15,29 +23,22 @@ namespace ClinicHub.Infrastructure.Persistence.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Specialty>> GetAllAsync()
+        public async Task<IEnumerable<Specialty>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _context.Specialties.ToListAsync();
         }
 
-        public Task<IEnumerable<Specialty>> GetSpecialtiesByDoctorIdAsync(int doctorId)
+        public async Task<IEnumerable<Specialty>> GetSpecialtiesByDoctorIdAsync(int doctorId)
         {
-            throw new NotImplementedException();
+            return await _context.Specialties
+                        .Where(s => s.Doctors.Any(d => d.Id == doctorId))
+                        .ToListAsync();
         }
 
-        public Task<IEnumerable<Specialty>> GetSpecialtiesByHealthInsuranceIdAsync(int healthInsuranceId)
+        public async Task<Specialty?> GetSpecialtyByIdAsync(int id)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<Specialty?> GetSpecialtyByIdAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task UpdateAsync(Specialty specialty)
-        {
-            throw new NotImplementedException();
+            return await _context.Specialties.Where(s => s.Id == id)
+                        .SingleOrDefaultAsync();
         }
     }
 }

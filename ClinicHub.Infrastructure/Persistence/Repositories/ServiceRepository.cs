@@ -1,13 +1,21 @@
 ﻿using ClinicHub.Core.Entity;
 using ClinicHub.Core.Repositores;
+using Microsoft.EntityFrameworkCore;
 
 namespace ClinicHub.Infrastructure.Persistence.Repositories
 {
     public class ServiceRepository : IServiceRepository
     {
-        public Task AddAsync(Service service)
+        private readonly ClinicHubDbContext _context;
+
+        public ServiceRepository(ClinicHubDbContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
+        }
+
+        public async Task AddAsync(Service service)
+        {
+            await _context.Services.AddAsync(service);
         }
 
         public Task DeleteAsync(int id)
@@ -15,29 +23,25 @@ namespace ClinicHub.Infrastructure.Persistence.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Service>> GetAllAsync()
+        public async Task<IEnumerable<Service>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _context.Services
+                        .Include(s => s.CustomerServices)
+                        .ToListAsync();
         }
 
-        public Task<Service?> GetServiceByIdAsync(int id)
+        public async Task<Service?> GetServiceByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Services
+                        .Where(s => s.Id == id)
+                        .SingleOrDefaultAsync();
         }
 
-        public Task<IEnumerable<Service>> GetServicesByDoctorIdAsync(int doctorId)
+        public async Task<IEnumerable<Service>> GetServicesByDoctorIdAsync(int doctorId)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<Service>> GetServicesByHealthInsuranceIdAsync(int healthInsuranceId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task UpdateAsync(Service service)
-        {
-            throw new NotImplementedException();
+            return await _context.Services
+                        .Where(s => s.CustomerServices.Any(cs => cs.DoctorId == doctorId))
+                        .ToListAsync();
         }
     }
 }

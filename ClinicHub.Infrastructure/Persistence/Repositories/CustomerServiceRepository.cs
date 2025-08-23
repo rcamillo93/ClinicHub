@@ -1,13 +1,21 @@
 ﻿using ClinicHub.Core.Entity;
 using ClinicHub.Core.Repositores;
+using Microsoft.EntityFrameworkCore;
 
 namespace ClinicHub.Infrastructure.Persistence.Repositories
 {
     public class CustomerServiceRepository : ICustomerServiceRepository
     {
-        public Task AddAsync(CustomerService customerService)
+        private readonly ClinicHubDbContext _context;
+
+        public CustomerServiceRepository(ClinicHubDbContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
+        }
+
+        public async Task AddAsync(CustomerService customerService)
+        {
+            await _context.CustomerServices.AddAsync(customerService);
         }
 
         public Task DeleteAsync(int id)
@@ -15,19 +23,20 @@ namespace ClinicHub.Infrastructure.Persistence.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<CustomerService>> GetAllAsync()
+        public async Task<IEnumerable<CustomerService>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _context.CustomerServices
+                            .ToListAsync();
         }
 
-        public Task<CustomerService?> GetCustomerServiceByIdAsync(int id)
+        public async Task<CustomerService?> GetCustomerServiceByIdAsync(int id)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task UpdateAsync(CustomerService customerService)
-        {
-            throw new NotImplementedException();
+            return await _context.CustomerServices
+                            .Include(x => x.Doctor)
+                            .Include(x => x.Patient)
+                            .Include(x => x.Service)
+                            .Include(x => x.ConsultationType)
+                            .SingleOrDefaultAsync(x => x.Id == id);
         }
     }
 }

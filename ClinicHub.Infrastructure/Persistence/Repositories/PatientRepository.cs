@@ -1,13 +1,20 @@
 ﻿using ClinicHub.Core.Entity;
 using ClinicHub.Core.Repositores;
+using Microsoft.EntityFrameworkCore;
 
 namespace ClinicHub.Infrastructure.Persistence.Repositories
 {
     public class PatientRepository : IPatientRepository
     {
-        public Task AddAsync(Patient patient)
+        private readonly ClinicHubDbContext _context;
+        public PatientRepository(ClinicHubDbContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
+        }
+
+        public async Task AddAsync(Patient patient)
+        {
+            await _context.Patients.AddAsync(patient);
         }
 
         public Task DeleteAsync(int id)
@@ -15,29 +22,38 @@ namespace ClinicHub.Infrastructure.Persistence.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Patient>> GetAllAsync()
+        public async Task<IEnumerable<Patient>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _context.Patients
+                            .Include(p => p.Address)
+                            .Include(p => p.HealthInsurance)
+                            .ToListAsync(); 
         }
 
-        public Task<Patient?> GetPatientByIdAsync(int id)
+        public async Task<Patient?> GetPatientByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Patients
+                            .Include(p => p.Address)
+                            .Include(p => p.HealthInsurance)
+                            .SingleOrDefaultAsync(p => p.Id == id);
         }
 
-        public Task<IEnumerable<Patient>> GetPatientsByDoctorIdAsync(int doctorId)
+        public async Task<IEnumerable<Patient>> GetPatientsByDoctorIdAsync(int doctorId)
         {
-            throw new NotImplementedException();
+            return await _context.Patients
+                            .Include(p => p.Address)
+                            .Include(p => p.HealthInsurance)
+                            .Where(p => p.CustomerServices.Any(cs => cs.DoctorId == doctorId))
+                            .ToListAsync();
         }
 
-        public Task<IEnumerable<Patient>> GetPatientsByHealthInsuranceIdAsync(int healthInsuranceId)
+        public async Task<IEnumerable<Patient>> GetPatientsByHealthInsuranceIdAsync(int healthInsuranceId)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task UpdateAsync(Patient patient)
-        {
-            throw new NotImplementedException();
+            return await _context.Patients
+                            .Include(p => p.Address)
+                            .Include(p => p.HealthInsurance)
+                            .Where(p => p.HealthInsuranceId == healthInsuranceId)
+                            .ToListAsync();
         }
     }
 }
