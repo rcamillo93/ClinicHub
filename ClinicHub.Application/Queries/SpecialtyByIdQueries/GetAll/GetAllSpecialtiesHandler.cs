@@ -23,13 +23,12 @@ namespace ClinicHub.Application.Queries.SpecialtyByIdQueries.GetAll
                 return ResultViewModel<List<SpecialtyViewModel>>.Error("No specialties found.");
             }
 
-            var specialtyViewModels = specialities.Select(s => new SpecialtyViewModel
-            {
-                Id = s.Id,
-                Name = s.Name,
-                Description = s.Description,
-                CreatedAt = s.CreatedAt
-            }).ToList();
+            var specialtyViewModels = specialities.Select(s => new SpecialtyViewModel(
+                s.Id,
+                s.Name,
+                s.Description,
+                s.CreatedAt
+            )).ToList();
 
             return ResultViewModel<List<SpecialtyViewModel>>.Sucess(specialtyViewModels);
         }

@@ -25,7 +25,7 @@ namespace ClinicHub.Infrastructure
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUserRepository, UserRepository>();           
             services.AddScoped<IConsultationTypeRepository, ConsultationTypeRepository>();
-            services.AddScoped<CustomerServiceRepository, CustomerServiceRepository>();
+            services.AddScoped<ICustomerServiceRepository, CustomerServiceRepository>();
             services.AddScoped<IHealthInsuranceRepository, HealthInsuranceRepository>();
             services.AddScoped<IPatientRepository, PatientRepository>();
             services.AddScoped<IServiceRepository, ServiceRepository>();
