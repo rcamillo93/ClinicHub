@@ -6,7 +6,7 @@ namespace ClinicHub.Core.Entity
     {
         public CustomerService(int doctorId, int patientId, int serviceId, DateTime startAt, DateTime? endAt,
                                TypeServiceEnum typeService, StatusServiceEnum statusService, int consultationTypeId,
-                               string? observations, int? paymentId)
+                               decimal value, string? observations, int? paymentId)
         {
             DoctorId = doctorId;
             PatientId = patientId;
@@ -16,6 +16,7 @@ namespace ClinicHub.Core.Entity
             TypeService = typeService;
             StatusService = statusService;
             ConsultationTypeId = consultationTypeId;
+            Value = value;
             Observations = observations;
             PaymentId = paymentId;
         }
@@ -28,11 +29,12 @@ namespace ClinicHub.Core.Entity
         public TypeServiceEnum TypeService { get; private set; }
         public StatusServiceEnum StatusService { get; private set; }
         public int ConsultationTypeId { get; private set; }
+        public decimal Value { get; private set; }
         public string? Observations { get; private set; }
         public int? PaymentId { get; private set; }        
         public Doctor Doctor { get; private set; }
         public Patient Patient { get; private set; }
         public Service Service { get; private set; }
         public ConsultationType ConsultationType { get; private set; }
-    }
+    } 
 }

@@ -24,11 +24,6 @@ namespace ClinicHub.Infrastructure.Persistence.Configurations
                 .HasMaxLength(400);
 
             builder
-                .Property(s => s.Value)
-                .IsRequired()
-                .HasColumnType("decimal(18,2)");
-
-            builder
                 .Property(s => s.Duration)
                 .IsRequired();
         }

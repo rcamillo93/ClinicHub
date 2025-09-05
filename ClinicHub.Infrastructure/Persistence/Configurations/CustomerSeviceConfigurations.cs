@@ -35,6 +35,11 @@ namespace ClinicHub.Infrastructure.Persistence.Configurations
                 .HasMaxLength(500);
 
             builder
+                .Property(cs => cs.Value)
+                .IsRequired()
+                .HasColumnType("decimal(18,2)");
+
+            builder
                 .HasOne(cs => cs.Doctor)
                 .WithMany(d => d.CustomerServices)
                 .HasForeignKey(cs => cs.DoctorId)

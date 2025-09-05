@@ -127,9 +127,6 @@ namespace ClinicHub.Infrastructure.Persistence.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal>("Value")
-                        .HasColumnType("decimal(6,2)");
-
                     b.HasKey("Id");
 
                     b.ToTable("ConsultationTypes", (string)null);
@@ -182,6 +179,9 @@ namespace ClinicHub.Infrastructure.Persistence.Migrations
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<decimal>("Value")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
@@ -355,6 +355,51 @@ namespace ClinicHub.Infrastructure.Persistence.Migrations
                     b.ToTable("Patients");
                 });
 
+            modelBuilder.Entity("ClinicHub.Core.Entity.Pricing", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ConsultationTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("HealthInsuranceId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ServiceId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SpecialtyId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("Value")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ConsultationTypeId");
+
+                    b.HasIndex("HealthInsuranceId");
+
+                    b.HasIndex("ServiceId");
+
+                    b.HasIndex("SpecialtyId");
+
+                    b.ToTable("Pricing");
+                });
+
             modelBuilder.Entity("ClinicHub.Core.Entity.Service", b =>
                 {
                     b.Property<int>("Id")
@@ -384,9 +429,6 @@ namespace ClinicHub.Infrastructure.Persistence.Migrations
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
-
-                    b.Property<decimal>("Value")
-                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
@@ -607,6 +649,32 @@ namespace ClinicHub.Infrastructure.Persistence.Migrations
                     b.Navigation("HealthInsurance");
                 });
 
+            modelBuilder.Entity("ClinicHub.Core.Entity.Pricing", b =>
+                {
+                    b.HasOne("ClinicHub.Core.Entity.ConsultationType", null)
+                        .WithMany("Pricings")
+                        .HasForeignKey("ConsultationTypeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ClinicHub.Core.Entity.HealthInsurance", null)
+                        .WithMany("Pricings")
+                        .HasForeignKey("HealthInsuranceId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("ClinicHub.Core.Entity.Service", null)
+                        .WithMany("Pricings")
+                        .HasForeignKey("ServiceId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ClinicHub.Core.Entity.Specialty", null)
+                        .WithMany("Pricings")
+                        .HasForeignKey("SpecialtyId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("ClinicHub.Core.Entity.City", b =>
                 {
                     b.Navigation("Addresses");
@@ -615,11 +683,18 @@ namespace ClinicHub.Infrastructure.Persistence.Migrations
             modelBuilder.Entity("ClinicHub.Core.Entity.ConsultationType", b =>
                 {
                     b.Navigation("CustomerServices");
+
+                    b.Navigation("Pricings");
                 });
 
             modelBuilder.Entity("ClinicHub.Core.Entity.Doctor", b =>
                 {
                     b.Navigation("CustomerServices");
+                });
+
+            modelBuilder.Entity("ClinicHub.Core.Entity.HealthInsurance", b =>
+                {
+                    b.Navigation("Pricings");
                 });
 
             modelBuilder.Entity("ClinicHub.Core.Entity.Patient", b =>
@@ -630,11 +705,15 @@ namespace ClinicHub.Infrastructure.Persistence.Migrations
             modelBuilder.Entity("ClinicHub.Core.Entity.Service", b =>
                 {
                     b.Navigation("CustomerServices");
+
+                    b.Navigation("Pricings");
                 });
 
             modelBuilder.Entity("ClinicHub.Core.Entity.Specialty", b =>
                 {
                     b.Navigation("Doctors");
+
+                    b.Navigation("Pricings");
                 });
 
             modelBuilder.Entity("ClinicHub.Core.Entity.State", b =>
