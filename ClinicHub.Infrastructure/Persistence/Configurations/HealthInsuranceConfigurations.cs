@@ -30,11 +30,6 @@ namespace ClinicHub.Infrastructure.Persistence.Configurations
                 .HasMaxLength(500);
 
             builder
-                .Property(h => h.Discount)
-                .IsRequired()
-                .HasColumnType("decimal(3,2)");
-
-            builder
                 .Property(h => h.Validity)
                 .IsRequired();
         }

@@ -7,7 +7,6 @@ namespace ClinicHub.Application.Commands.HealthInsuranceCommands.Create
     {
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
-        public decimal Price { get; set; }
-        public int Duration { get; set; }
+        public DateTime Validity { get; private set; }
     }   
 }

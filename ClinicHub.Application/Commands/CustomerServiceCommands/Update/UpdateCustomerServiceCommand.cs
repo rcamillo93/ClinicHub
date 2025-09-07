@@ -1,29 +1,33 @@
-﻿using ClinicHub.Core.Enums;
+﻿using ClinicHub.Application.Models;
+using ClinicHub.Core.Enums;
+using MediatR;
 
-namespace ClinicHub.Core.Entity
+namespace ClinicHub.Application.Commands.CustomerServiceCommands.Update
 {
-    public class CustomerService : BaseEntity
+    public class UpdateCustomerServiceCommand : IRequest<ResultViewModel>
     {
-        public CustomerService(int doctorId, int patientId, int serviceId, DateTime startAt,
-                               DateTime? endAt, TypeServiceEnum typeService, int consultationTypeId,
-                               decimal value, string? observations, int? paymentId)
+        public UpdateCustomerServiceCommand(int id, int doctorId, int patientId, int serviceId, DateTime startAt, 
+                                            DateTime? endAt, TypeServiceEnum typeService, StatusServiceEnum statusService,
+                                            int consultationTypeId, decimal value, string? observations, int? paymentId)
         {
+            Id = id;
             DoctorId = doctorId;
             PatientId = patientId;
             ServiceId = serviceId;
             StartAt = startAt;
             EndAt = endAt;
-            TypeService = typeService;           
+            TypeService = typeService;
+            StatusService = statusService;
             ConsultationTypeId = consultationTypeId;
-            StatusService = StatusServiceEnum.Scheduled;
             Value = value;
             Observations = observations;
             PaymentId = paymentId;
         }
 
+        public int Id { get; private set; }
         public int DoctorId { get; private set; }
         public int PatientId { get; private set; }
-        public int ServiceId { get; private set; }        
+        public int ServiceId { get; private set; }
         public DateTime StartAt { get; private set; }
         public DateTime? EndAt { get; private set; }
         public TypeServiceEnum TypeService { get; private set; }
@@ -31,10 +35,6 @@ namespace ClinicHub.Core.Entity
         public int ConsultationTypeId { get; private set; }
         public decimal Value { get; private set; }
         public string? Observations { get; private set; }
-        public int? PaymentId { get; private set; }        
-        public Doctor Doctor { get; private set; }
-        public Patient Patient { get; private set; }
-        public Service Service { get; private set; }
-        public ConsultationType ConsultationType { get; private set; }
-    } 
+        public int? PaymentId { get; private set; }
+    }
 }

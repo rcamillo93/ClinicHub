@@ -8,7 +8,8 @@
         IServiceRepository Services { get; }
         ISpecialtyRepository Specialties { get; }
         IPatientRepository Patients { get; }
-        IUserRepository Users { get; }        
+        IUserRepository Users { get; }      
+        IPricingRepository Pricings { get; }
         Task<int> CompleteAsync();
     }
 }

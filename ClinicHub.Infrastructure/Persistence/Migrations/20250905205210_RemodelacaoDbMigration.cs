@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ClinicHub.Infrastructure.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class RemodelacaoMigration : Migration
+    public partial class RemodelacaoDbMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -36,7 +36,6 @@ namespace ClinicHub.Infrastructure.Persistence.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    Discount = table.Column<decimal>(type: "decimal(3,2)", nullable: false),
                     Validity = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -122,7 +121,7 @@ namespace ClinicHub.Infrastructure.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Pricing",
+                name: "Pricings",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -138,27 +137,27 @@ namespace ClinicHub.Infrastructure.Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Pricing", x => x.Id);
+                    table.PrimaryKey("PK_Pricings", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Pricing_ConsultationTypes_ConsultationTypeId",
+                        name: "FK_Pricings_ConsultationTypes_ConsultationTypeId",
                         column: x => x.ConsultationTypeId,
                         principalTable: "ConsultationTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Pricing_HealthInsurances_HealthInsuranceId",
+                        name: "FK_Pricings_HealthInsurances_HealthInsuranceId",
                         column: x => x.HealthInsuranceId,
                         principalTable: "HealthInsurances",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Pricing_Services_ServiceId",
+                        name: "FK_Pricings_Services_ServiceId",
                         column: x => x.ServiceId,
                         principalTable: "Services",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Pricing_Specialties_SpecialtyId",
+                        name: "FK_Pricings_Specialties_SpecialtyId",
                         column: x => x.SpecialtyId,
                         principalTable: "Specialties",
                         principalColumn: "Id",
@@ -401,23 +400,23 @@ namespace ClinicHub.Infrastructure.Persistence.Migrations
                 column: "HealthInsuranceId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Pricing_ConsultationTypeId",
-                table: "Pricing",
+                name: "IX_Pricings_ConsultationTypeId",
+                table: "Pricings",
                 column: "ConsultationTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Pricing_HealthInsuranceId",
-                table: "Pricing",
+                name: "IX_Pricings_HealthInsuranceId",
+                table: "Pricings",
                 column: "HealthInsuranceId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Pricing_ServiceId",
-                table: "Pricing",
+                name: "IX_Pricings_ServiceId",
+                table: "Pricings",
                 column: "ServiceId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Pricing_SpecialtyId",
-                table: "Pricing",
+                name: "IX_Pricings_SpecialtyId",
+                table: "Pricings",
                 column: "SpecialtyId");
         }
 
@@ -428,7 +427,7 @@ namespace ClinicHub.Infrastructure.Persistence.Migrations
                 name: "CustomerServices");
 
             migrationBuilder.DropTable(
-                name: "Pricing");
+                name: "Pricings");
 
             migrationBuilder.DropTable(
                 name: "Doctors");

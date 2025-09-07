@@ -1,6 +1,8 @@
 ﻿using ClinicHub.Core.Repositores;
+using ClinicHub.Core.Services;
 using ClinicHub.Infrastructure.Persistence;
 using ClinicHub.Infrastructure.Persistence.Repositories;
+using ClinicHub.Infrastructure.Services.Auth;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,7 +14,8 @@ namespace ClinicHub.Infrastructure
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
             services
-                .AddRepositories(configuration);
+                .AddRepositories(configuration)
+                .AddServices();
 
             return services;
         }
@@ -28,8 +31,16 @@ namespace ClinicHub.Infrastructure
             services.AddScoped<ICustomerServiceRepository, CustomerServiceRepository>();
             services.AddScoped<IHealthInsuranceRepository, HealthInsuranceRepository>();
             services.AddScoped<IPatientRepository, PatientRepository>();
+            services.AddScoped<IPricingRepository, PricingRepository>();
             services.AddScoped<IServiceRepository, ServiceRepository>();
             services.AddScoped<ISpecialtyRepository, SpecialtyRepository>();
+
+            return services;
+        }
+
+        private static IServiceCollection AddServices(this IServiceCollection services)
+        {            
+            services.AddScoped<IAuthService, AuthService>();
 
             return services;
         }

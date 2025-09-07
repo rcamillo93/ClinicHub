@@ -39,8 +39,10 @@ namespace ClinicHub.API.Controllers
         public async Task<IActionResult> GetDoctors()
         {
             var result = await _mediator.Send(new GetAllDoctorsQuery());
+
             if (result.IsSuccess)
                 return Ok(result);
+
             return BadRequest(result);
         }
 
@@ -50,8 +52,10 @@ namespace ClinicHub.API.Controllers
         public async Task<IActionResult> GetDoctor(int id)
         {
             var result = await _mediator.Send(new GetDoctorByIdQuery(id));
+
             if (result.IsSuccess)
                 return Ok(result);
+
             return BadRequest(result);
         }
 

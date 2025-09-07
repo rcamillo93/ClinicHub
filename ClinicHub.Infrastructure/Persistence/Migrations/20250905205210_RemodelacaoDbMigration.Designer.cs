@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ClinicHub.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ClinicHubDbContext))]
-    [Migration("20250905190938_RemodelacaoMigration")]
-    partial class RemodelacaoMigration
+    [Migration("20250905205210_RemodelacaoDbMigration")]
+    partial class RemodelacaoDbMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -265,9 +265,6 @@ namespace ClinicHub.Infrastructure.Persistence.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<decimal>("Discount")
-                        .HasColumnType("decimal(3,2)");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -400,7 +397,7 @@ namespace ClinicHub.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("SpecialtyId");
 
-                    b.ToTable("Pricing");
+                    b.ToTable("Pricings");
                 });
 
             modelBuilder.Entity("ClinicHub.Core.Entity.Service", b =>

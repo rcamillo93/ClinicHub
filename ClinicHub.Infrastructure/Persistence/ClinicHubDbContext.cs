@@ -19,6 +19,7 @@ namespace ClinicHub.Infrastructure.Persistence
         public DbSet<Specialty> Specialties { get; set; }
         public DbSet<State> States { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Pricing> Pricings { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

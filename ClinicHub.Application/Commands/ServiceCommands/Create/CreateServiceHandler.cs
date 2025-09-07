@@ -18,8 +18,8 @@ namespace ClinicHub.Application.Commands.ServiceCommands.Create
             var serivce = request.ToEntity();
 
             await _unitOfWork.Services.AddAsync(serivce);
-
             await _unitOfWork.CompleteAsync();
+
             return ResultViewModel<int>.Sucess(serivce.Id);
         }
     }
