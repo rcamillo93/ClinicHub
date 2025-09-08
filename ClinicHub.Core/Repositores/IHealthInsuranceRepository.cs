@@ -6,7 +6,7 @@ namespace ClinicHub.Core.Repositores
     {
         Task<HealthInsurance?> GetHealthInsuranceByIdAsync(int id);
         Task AddAsync(HealthInsurance healthInsurance);
-        Task<IEnumerable<HealthInsurance>> GetAllAsync();
+        Task<IEnumerable<HealthInsurance>> GetAllAsync(string? name);
         Task DeleteAsync(int id);
     }
 }

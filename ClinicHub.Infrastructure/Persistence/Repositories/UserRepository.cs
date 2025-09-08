@@ -26,22 +26,21 @@ namespace ClinicHub.Infrastructure.Persistence.Repositories
         public async Task UpdateAsync(User order)
         {
             throw new NotImplementedException();
-        }
+        }       
 
-        public Task UpdateDoctor(Doctor doctor)
+        public async Task<User?> GetUserById(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Users.SingleOrDefaultAsync(u => u.Id == id);
         }
 
-        public async Task AddDoctor(Doctor doctor)
+        public async Task<List<User>> GetAllAsync(string? name)
         {
-            await _context.Doctors.AddAsync(doctor);
-        }
+            var query = _context.Users.AsQueryable().AsNoTracking();
 
-        public Task<Doctor> GetDoctorById(int id)
-        {
-            throw new NotImplementedException();
-        }
+            if (!string.IsNullOrWhiteSpace(name))
+                query = query.Where(u => EF.Functions.Like(u.FullName.ToLower(), $"%{name.ToLower()}%"));
 
+            return await query.ToListAsync();
+        }
     }
 }

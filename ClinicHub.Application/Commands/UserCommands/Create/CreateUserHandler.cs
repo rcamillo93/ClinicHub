@@ -27,7 +27,7 @@ namespace ClinicHub.Application.Commands.UserCommands.Create
 
             await _unitOfWork.CompleteAsync();
 
-            return ResultViewModel<int>.Sucess(user.Id);
+            return ResultViewModel<int>.Success(user.Id);
         }
     }    
 }

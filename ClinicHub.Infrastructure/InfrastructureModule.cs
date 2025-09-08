@@ -26,6 +26,7 @@ namespace ClinicHub.Infrastructure
                 options => options.UseSqlServer(configuration.GetConnectionString("ClinicHub")));
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IDoctorRepository, DoctorRepository>();
             services.AddScoped<IUserRepository, UserRepository>();           
             services.AddScoped<IConsultationTypeRepository, ConsultationTypeRepository>();
             services.AddScoped<ICustomerServiceRepository, CustomerServiceRepository>();

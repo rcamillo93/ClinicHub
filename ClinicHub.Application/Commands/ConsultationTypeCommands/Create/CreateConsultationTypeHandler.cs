@@ -20,7 +20,7 @@ namespace ClinicHub.Application.Commands.ConsultationTypeCommands.Create
 
             await _unitOfWork.ConsultationTypes.AddAsync(consultationType);
 
-            return ResultViewModel<int>.Sucess(await _unitOfWork.CompleteAsync());
+            return ResultViewModel<int>.Success(await _unitOfWork.CompleteAsync());
         }
     }
 }

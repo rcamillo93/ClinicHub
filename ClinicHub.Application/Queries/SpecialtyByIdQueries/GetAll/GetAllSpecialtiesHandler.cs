@@ -16,12 +16,7 @@ namespace ClinicHub.Application.Queries.SpecialtyByIdQueries.GetAll
 
         public async Task<ResultViewModel<List<SpecialtyViewModel>>> Handle(GetAllSpecialtiesQuery request, CancellationToken cancellationToken)
         {
-            var specialities = await _unitOfWork.Specialties.GetAllAsync();
-
-            if (specialities == null || !specialities.Any())
-            {
-                return ResultViewModel<List<SpecialtyViewModel>>.Error("No specialties found.");
-            }
+            var specialities = await _unitOfWork.Specialties.GetAllAsync(request.Name);
 
             var specialtyViewModels = specialities.Select(s => new SpecialtyViewModel(
                 s.Id,
@@ -30,7 +25,7 @@ namespace ClinicHub.Application.Queries.SpecialtyByIdQueries.GetAll
                 s.CreatedAt
             )).ToList();
 
-            return ResultViewModel<List<SpecialtyViewModel>>.Sucess(specialtyViewModels);
+            return ResultViewModel<List<SpecialtyViewModel>>.Success(specialtyViewModels);
         }
     }
 }

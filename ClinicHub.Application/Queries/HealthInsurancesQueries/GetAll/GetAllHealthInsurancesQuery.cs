@@ -7,5 +7,6 @@ namespace ClinicHub.Application.Queries.HealthInsurancesQueries.GetAll
 {
     public class GetAllHealthInsurancesQuery : IRequest<ResultViewModel<List<HealthInsuranceViewModel>>>
     {
+        public string? Name { get; set; }
     }
 }

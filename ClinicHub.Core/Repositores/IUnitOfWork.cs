@@ -9,6 +9,7 @@
         ISpecialtyRepository Specialties { get; }
         IPatientRepository Patients { get; }
         IUserRepository Users { get; }      
+        IDoctorRepository Doctors { get; }
         IPricingRepository Pricings { get; }
         Task<int> CompleteAsync();
     }

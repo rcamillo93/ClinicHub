@@ -23,14 +23,14 @@ namespace ClinicHub.Application.Commands.DoctorCommands.Create
 
             var doctor = request.ToEntity(user.Id);
 
-            await _unitOfWork.Users.AddDoctor(doctor);
+            await _unitOfWork.Doctors.AddAsync(doctor);
 
             var result = await _unitOfWork.CompleteAsync();
 
             if(result == 0)
                 return ResultViewModel<int>.Error("Erro ao criar o médico");
 
-            return ResultViewModel<int>.Sucess(doctor.Id);
+            return ResultViewModel<int>.Success(doctor.Id);
         }
     }
 }

@@ -6,9 +6,8 @@ namespace ClinicHub.Core.Repositores
     {
         Task<User?> GetUserByIdAsync(int id);
         Task AddAsync(User order);
-        Task UpdateAsync(User order);
-        Task AddDoctor(Doctor doctor);
-        Task UpdateDoctor(Doctor doctor);
-        Task<Doctor> GetDoctorById(int id);
+        Task UpdateAsync(User order);     
+        Task<User?> GetUserById(int id);
+        Task<List<User>> GetAllAsync(string? name);
     }
 }

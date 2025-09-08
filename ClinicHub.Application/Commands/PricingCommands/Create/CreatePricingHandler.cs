@@ -19,7 +19,7 @@ namespace ClinicHub.Application.Commands.PricingCommands.Create
 
             await _unitOfWork.Pricings.AddAsync(pricing);
 
-            return ResultViewModel<int>.Sucess(await _unitOfWork.CompleteAsync());
+            return ResultViewModel<int>.Success(await _unitOfWork.CompleteAsync());
         }
     }
 }

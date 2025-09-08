@@ -15,6 +15,7 @@ namespace ClinicHub.Infrastructure.Persistence.Repositories
                             ICustomerServiceRepository customerServices,
                             IPatientRepository patients,
                             IUserRepository users,
+                            IDoctorRepository doctors,
                             IPricingRepository pricing)
         {
             _context = context;
@@ -25,10 +26,12 @@ namespace ClinicHub.Infrastructure.Persistence.Repositories
             CustomerServices = customerServices;
             Patients = patients;
             Users = users;
+            Doctors = doctors;
             Pricings = pricing;
         }
 
         public IUserRepository Users { get; }
+        public IDoctorRepository Doctors { get; }
 
         public ISpecialtyRepository Specialties { get; }
 

@@ -19,7 +19,7 @@ namespace ClinicHub.Application.Commands.CustomerServiceCommands.Create
 
             await _unitOfWork.CustomerServices.AddAsync(customerService);
 
-            return ResultViewModel<int>.Sucess(await _unitOfWork.CompleteAsync());
+            return ResultViewModel<int>.Success(await _unitOfWork.CompleteAsync());
         }
     }
 }

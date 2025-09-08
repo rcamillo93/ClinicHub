@@ -23,9 +23,21 @@ namespace ClinicHub.Infrastructure.Persistence.Repositories
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<Specialty>> GetAllAsync()
+        public async Task<IEnumerable<Specialty>> GetAllAsync(string? name)
         {
-            return await _context.Specialties.ToListAsync();
+            var query = _context.Specialties.AsQueryable().AsNoTracking();
+
+            if (!string.IsNullOrWhiteSpace(name))
+                query = query.Where(s => EF.Functions.Like(s.Name.ToLower(), $"%{name.ToLower()}%"));
+
+            return await query.ToListAsync();
+        }
+
+        public async Task<Specialty?> GetByIdAsync(int id)
+        {
+            return await _context.Specialties
+                        .Where(s => s.Id == id)
+                        .SingleOrDefaultAsync();
         }
 
         public async Task<IEnumerable<Specialty>> GetSpecialtiesByDoctorIdAsync(int doctorId)
@@ -38,6 +50,13 @@ namespace ClinicHub.Infrastructure.Persistence.Repositories
         public async Task<Specialty?> GetSpecialtyByIdAsync(int id)
         {
             return await _context.Specialties.Where(s => s.Id == id)
+                        .SingleOrDefaultAsync();
+        }
+
+        public async Task<Specialty?> GetSpecialtyByNameAsync(string name)
+        {
+           return await _context.Specialties
+                        .Where(s => s.Name.ToLower() == name.ToLower())
                         .SingleOrDefaultAsync();
         }
     }

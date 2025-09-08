@@ -11,7 +11,7 @@
         public bool IsSuccess { get; private set; }
         public string Message { get; private set; }
 
-        public static ResultViewModel Sucess()
+        public static ResultViewModel Success()
            => new();
 
         public static ResultViewModel Error(string message)
@@ -28,7 +28,7 @@
 
         public T? Data { get; private set; }
 
-        public static ResultViewModel<T> Sucess(T data)
+        public static ResultViewModel<T> Success(T data)
            => new(data);
 
         public static ResultViewModel<T> Error(string message)

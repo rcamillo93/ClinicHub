@@ -6,8 +6,7 @@ namespace ClinicHub.Application.Queries.DoctorQueries.GetAll
 {
     public class GetAllDoctorsQuery : IRequest<ResultViewModel<List<DoctorViewModel>>>
     {
-        public GetAllDoctorsQuery()
-        {
-        }
+       public string? Name { get; set; }
+        
     }
 }

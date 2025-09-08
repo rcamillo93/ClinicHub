@@ -23,11 +23,14 @@ namespace ClinicHub.Infrastructure.Persistence.Repositories
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<Service>> GetAllAsync()
+        public async Task<IEnumerable<Service>> GetAllAsync(string? name)
         {
-            return await _context.Services
-                        .Include(s => s.CustomerServices)
-                        .ToListAsync();
+            var query = _context.Services.AsQueryable().AsNoTracking();
+
+            if (!string.IsNullOrWhiteSpace(name))
+                query = query.Where(s => EF.Functions.Like(s.Name.ToLower(), $"%{name.ToLower()}%"));
+
+            return await query.ToListAsync();
         }
 
         public async Task<Service?> GetServiceByIdAsync(int id)

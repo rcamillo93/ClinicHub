@@ -20,7 +20,7 @@ namespace ClinicHub.Application.Commands.HealthInsuranceCommands.Create
 
             await _unitOfWork.HealthInsurances.AddAsync(healthInsurance);
             
-            return ResultViewModel<int>.Sucess(await _unitOfWork.CompleteAsync());
+            return ResultViewModel<int>.Success(await _unitOfWork.CompleteAsync());
         }
     }
 }

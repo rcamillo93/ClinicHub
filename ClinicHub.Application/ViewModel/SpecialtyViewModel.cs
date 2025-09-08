@@ -1,4 +1,6 @@
-﻿namespace ClinicHub.Application.ViewModel
+﻿using ClinicHub.Core.Entity;
+
+namespace ClinicHub.Application.ViewModel
 {
     public class SpecialtyViewModel
     {
