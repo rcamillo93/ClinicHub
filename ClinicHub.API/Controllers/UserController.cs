@@ -76,61 +76,6 @@ namespace ClinicHub.API.Controllers
 
             return BadRequest(result);
         }
-
-
-        [HttpPost("doctor")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> CreateDoctor([FromBody] CreateDoctorCommand command)
-        {
-            var result = await _mediator.Send(command);
-
-            if (result.IsSuccess)
-                return BadRequest(result);
-            
-            return CreatedAtAction(nameof(GetDoctor), new { id = result.Data });
-        }
-
-        [HttpGet("doctors")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> GetDoctors()
-        {
-            var result = await _mediator.Send(new GetAllDoctorsQuery());
-
-            if (result.IsSuccess)
-                return Ok(result);
-
-            return BadRequest(result);
-        }
-
-        [HttpGet("doctor/{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> GetDoctor(int id)
-        {
-            var result = await _mediator.Send(new GetDoctorByIdQuery(id));
-
-            if (result.IsSuccess)
-                return Ok(result);
-
-            return BadRequest(result);
-        }
-
-        [HttpPut("doctor/{id}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> UpdateDoctor(int id, [FromBody] UpdateDoctorCommand command)
-        {
-            if (id != command.Id)
-                return BadRequest("Id não confere com o do médico");
-
-            var result = await _mediator.Send(command);
-
-            if (result.IsSuccess)
-                return Ok(result);
-
-            return BadRequest(result);
-        }
+ 
     }
 }

@@ -48,7 +48,7 @@ namespace ClinicHub.Infrastructure.Persistence.Repositories
 
             return await query.ToListAsync();
         }
-
+        
         public async Task<CustomerService?> GetCustomerServiceByIdAsync(int id)
         {
             return await _context.CustomerServices

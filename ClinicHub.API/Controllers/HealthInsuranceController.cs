@@ -36,9 +36,9 @@ namespace ClinicHub.API.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> GetHealthInsurances()
+        public async Task<IActionResult> GetHealthInsurances([FromQuery] string? name)
         {
-            var result = await _mediator.Send(new GetAllHealthInsurancesQuery());
+            var result = await _mediator.Send(new GetAllHealthInsurancesQuery(name));
 
             if (result.IsSuccess)
                 return Ok(result);

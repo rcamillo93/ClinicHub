@@ -35,9 +35,9 @@ namespace ClinicHub.API.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> GetServices()
+        public async Task<IActionResult> GetServices([FromQuery] string? name)
         {
-            var result = await _mediator.Send(new GetAllServicesQuery());
+            var result = await _mediator.Send(new GetAllServicesQuery(name));
 
             if (result.IsSuccess)
                 return Ok(result);

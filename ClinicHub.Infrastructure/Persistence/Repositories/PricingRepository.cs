@@ -23,14 +23,35 @@ namespace ClinicHub.Infrastructure.Persistence.Repositories
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<Pricing>> GetAllAsync()
+        public async Task<IEnumerable<Pricing>> GetAllAsync(int? healthInsuranceId, int? specialtyId, int? consultationTypeId)
         {
-            return await _context.Pricings.AsNoTracking().ToListAsync();
+            var query = _context.Pricings
+                        .AsQueryable()
+                        .Include(p => p.HealthInsurance)
+                        .Include(p => p.ConsultationType)
+                        .Include(p => p.Specialty)
+                        .Include(p => p.Service)
+                        .AsNoTracking();
+
+            if (healthInsuranceId.HasValue)
+                query = query.Where(p => p.HealthInsuranceId == healthInsuranceId.Value);
+
+            if (specialtyId.HasValue)
+                query = query.Where(p => p.SpecialtyId == specialtyId.Value);
+
+            if (consultationTypeId.HasValue)
+                query = query.Where(p => p.ConsultationTypeId == consultationTypeId.Value);
+
+            return await query.ToListAsync();
         }
 
-        public async Task<Pricing?> GetSpecialtyByIdAsync(int id)
+        public async Task<Pricing?> GetByIdAsync(int id)
         {
             return await _context.Pricings.AsNoTracking()
+                        .Include(p => p.HealthInsurance)
+                        .Include(p => p.ConsultationType)
+                        .Include(p => p.Specialty)
+                        .Include(p => p.Service)
                         .Where(p => p.Id == id)
                         .SingleOrDefaultAsync();
         }
