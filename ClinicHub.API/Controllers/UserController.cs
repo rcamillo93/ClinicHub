@@ -32,7 +32,7 @@ namespace ClinicHub.API.Controllers
             if (!result.IsSuccess)
                 return BadRequest(result);
 
-            return CreatedAtAction(nameof(GetUser), new { id = result.Data });
+            return CreatedAtAction(nameof(GetUserById), new { id = result.Data });
         }
 
         [HttpGet]
@@ -51,7 +51,7 @@ namespace ClinicHub.API.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> GetUser(int id)
+        public async Task<IActionResult> GetUserById(int id)
         {
             var result = await _mediator.Send(new GetUserByIdQuery(id));
 

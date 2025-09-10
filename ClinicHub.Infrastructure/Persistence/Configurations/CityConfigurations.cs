@@ -1,6 +1,7 @@
 ﻿using ClinicHub.Core.Entity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System.Reflection.Emit;
 
 namespace ClinicHub.Infrastructure.Persistence.Configurations
 {
@@ -29,6 +30,14 @@ namespace ClinicHub.Infrastructure.Persistence.Configurations
                 .WithOne()
                 .HasForeignKey(a => a.CityId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .Property(a => a.CreatedAt)
+                .HasDefaultValueSql("GETUTCDATE()");
+
+            builder
+                .Property(a => a.IsDeleted)
+                .HasDefaultValue(false);
         }
     }
 }

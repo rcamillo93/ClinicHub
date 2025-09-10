@@ -49,7 +49,7 @@ namespace ClinicHub.API.Controllers
             if (!result.IsSuccess)
                 return BadRequest(result);
 
-            return Ok();
+            return Ok(result);
         }
 
         [HttpGet("{id}")]

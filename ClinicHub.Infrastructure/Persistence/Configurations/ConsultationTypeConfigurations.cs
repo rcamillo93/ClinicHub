@@ -19,6 +19,14 @@ namespace ClinicHub.Infrastructure.Persistence.Configurations
                 .Property(ct => ct.Description)
                 .IsRequired()
                 .HasMaxLength(500); 
+
+             builder
+                .Property(a => a.CreatedAt)
+                .HasDefaultValueSql("GETUTCDATE()");
+
+            builder
+                .Property(a => a.IsDeleted)
+                .HasDefaultValue(false);
         }
     }    
 }

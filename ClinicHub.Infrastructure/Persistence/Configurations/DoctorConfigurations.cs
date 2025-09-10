@@ -14,6 +14,7 @@ namespace ClinicHub.Infrastructure.Persistence.Configurations
                 .HasOne(d => d.Address)
                 .WithOne()
                 .HasForeignKey<Doctor>(d => d.AddressId)
+                .IsRequired(false)
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder
@@ -25,7 +26,15 @@ namespace ClinicHub.Infrastructure.Persistence.Configurations
             builder
                 .Property(builder => builder.Crm)
                 .IsRequired()
-                .HasMaxLength(10);      
+                .HasMaxLength(10);
+
+            builder
+              .Property(a => a.CreatedAt)
+              .HasDefaultValueSql("GETUTCDATE()");
+
+            builder
+                .Property(a => a.IsDeleted)
+                .HasDefaultValue(false);
         }
     }
 }

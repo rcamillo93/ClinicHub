@@ -4,7 +4,7 @@ namespace ClinicHub.Core.Entity
 {
     public class Doctor : BaseEntity
     {
-        public Doctor(int userId, string crm, BloodTypeEnum? bloodType, RHFactorEnum? rhFactor, int specialtyId, int addressId)
+        public Doctor(int userId, string crm, BloodTypeEnum? bloodType, RHFactorEnum? rhFactor, int specialtyId, int? addressId)
         {
             UserId = userId;
             Crm = crm;
@@ -21,10 +21,9 @@ namespace ClinicHub.Core.Entity
         public BloodTypeEnum? BloodType { get; private set; }
         public RHFactorEnum? RhFactor { get; private set; }
         public int SpecialtyId { get; private set; }
-        public int AddressId { get; private set; }
+        public int? AddressId { get; private set; }
         public Address? Address { get; private set; }
         public Specialty? Specialty { get; private set; }
         public List<CustomerService> CustomerServices { get; private set; }
     }
-
 }

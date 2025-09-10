@@ -5,7 +5,7 @@
         public Pricing(int serviceId, int specialtyId, 
                         int consultationTypeId, int? healthInsuranceId, decimal value)
         {
-            ServiceId = ServiceId;
+            ServiceId = serviceId;
             SpecialtyId = specialtyId;
             ConsultationTypeId = consultationTypeId;
             HealthInsuranceId = healthInsuranceId;
@@ -19,8 +19,8 @@
         public decimal Value { get; private set; }
 
         public HealthInsurance? HealthInsurance { get; set; }
-        public ConsultationType? ConsultationType { get; set; }
-        public Specialty? Specialty { get; set; }
-        public Service? Service { get; set; }
+        public ConsultationType ConsultationType { get; set; }
+        public Specialty Specialty { get; set; }
+        public Service Service { get; set; }
     }
 }

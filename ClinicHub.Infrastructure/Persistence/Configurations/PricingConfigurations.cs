@@ -12,29 +12,37 @@ namespace ClinicHub.Infrastructure.Persistence.Configurations
                 .HasKey(p => p.Id);
 
             builder
-                .HasOne<Service>()
+                .HasOne(p => p.Service)
                 .WithMany(s => s.Pricings)
                 .HasForeignKey(p => p.ServiceId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder
-                .HasOne<Specialty>()
+                .HasOne(p => p.Specialty)
                 .WithMany(sp => sp.Pricings)
                 .HasForeignKey(p => p.SpecialtyId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder
-                .HasOne<ConsultationType>()
+                .HasOne(p => p.ConsultationType)
                 .WithMany(ct => ct.Pricings)
                 .HasForeignKey(p => p.ConsultationTypeId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder
-                .HasOne<HealthInsurance>()
+                .HasOne(p => p.HealthInsurance)
                 .WithMany(h => h.Pricings)
                 .HasForeignKey(p => p.HealthInsuranceId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .IsRequired(false);
+
+            builder
+              .Property(a => a.CreatedAt)
+              .HasDefaultValueSql("GETUTCDATE()");
+
+            builder
+                .Property(a => a.IsDeleted)
+                .HasDefaultValue(false);
         }
     }
 }

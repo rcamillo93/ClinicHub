@@ -23,7 +23,7 @@ namespace ClinicHub.Infrastructure.Persistence.Repositories
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<CustomerService>> GetAllAsync(DateOnly? startDate, DateOnly? endDate, string? PatientName, string? DoctorName)
+        public async Task<IEnumerable<CustomerService>> GetAllAsync(DateTime? startDate, DateTime? endDate, string? PatientName, string? DoctorName)
         {
             var query = _context.CustomerServices
                                 .Include(x => x.Doctor)
@@ -35,10 +35,10 @@ namespace ClinicHub.Infrastructure.Persistence.Repositories
                                 .AsQueryable();
 
             if (startDate.HasValue)
-                query = query.Where(cs => DateOnly.Parse(cs.StartAt.ToString()) >= startDate.Value);
+                query = query.Where(cs => cs.StartAt >= startDate);
 
             if (startDate.HasValue)
-                query = query.Where(cs => DateOnly.Parse(cs.StartAt.ToString()) <= endDate.Value);
+                query = query.Where(cs => cs.StartAt <= endDate);
 
             if (!string.IsNullOrWhiteSpace(PatientName))
                 query = query.Where(cs => EF.Functions.Like(cs.Patient.FullName.ToLower(), $"%{PatientName.ToLower()}%"));

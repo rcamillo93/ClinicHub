@@ -39,7 +39,16 @@ namespace ClinicHub.Infrastructure.Persistence.Configurations
                .HasOne(p => p.Address)
                .WithOne()
                .HasForeignKey<Patient>(p => p.AddressId)
+               .IsRequired(false)
                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+              .Property(a => a.CreatedAt)
+              .HasDefaultValueSql("GETUTCDATE()");
+
+            builder
+                .Property(a => a.IsDeleted)
+                .HasDefaultValue(false);
         }
     }
 }

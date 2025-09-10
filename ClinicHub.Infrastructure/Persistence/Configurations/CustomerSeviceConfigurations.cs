@@ -62,6 +62,14 @@ namespace ClinicHub.Infrastructure.Persistence.Configurations
                 .WithMany(ct => ct.CustomerServices)
                 .HasForeignKey(cs => cs.ConsultationTypeId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+              .Property(a => a.CreatedAt)
+              .HasDefaultValueSql("GETUTCDATE()");
+
+            builder
+                .Property(a => a.IsDeleted)
+                .HasDefaultValue(false);
         }
     }
 }
